@@ -6,8 +6,8 @@
 ## 📊 Progress
 | Metric             | Count  |
 |--------------------|--------|
-| ✅ Problems Solved  | 4 |
-| 📅 Days Active     | 3  |
+| ✅ Problems Solved  | 2 |
+| 📅 Days Active     | 1  |
 | 🗓️ Last Updated    | 2026-04-13  |
 
 ## 📁 Structure
