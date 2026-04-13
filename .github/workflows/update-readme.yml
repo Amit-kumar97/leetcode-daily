@@ -1,0 +1,54 @@
+name: Update README with Progress
+
+on:
+  push:
+    paths:
+      - 'solutions/**'
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Count solutions and update README
+        run: |
+          TOTAL=$(find solutions/ -name "*.java" | wc -l)
+          DAYS=$(ls solutions/ | wc -l)
+          DATE=$(date +%F)
+
+          cat > README.md << EOF
+          # 🧠 Daily LeetCode Tracker (Java)
+
+          > Solving 2 LeetCode problems every day!
+          > Each problem includes Brute Force → Optimized approach.
+
+          ## 📊 Progress
+          | Metric             | Count  |
+          |--------------------|--------|
+          | ✅ Problems Solved  | $TOTAL |
+          | 📅 Days Active     | $DAYS  |
+          | 🗓️ Last Updated    | $DATE  |
+
+          ## 📁 Structure
+          \`\`\`
+          solutions/
+          └── YYYY-MM-DD/
+              ├── Problem1.java   (Brute Force + Optimized)
+              └── Problem2.java   (Brute Force + Optimized)
+          \`\`\`
+
+          ## 🎯 Approach per Problem
+          - 🔴 Brute Force — explained with code
+          - 🟢 Optimized — best time & space complexity
+          EOF
+
+      - name: Commit updated README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --staged --quiet || git commit -m "📊 Auto-update README"
+          git push  
